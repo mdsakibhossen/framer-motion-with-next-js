@@ -4,9 +4,10 @@ import { motion } from "framer-motion";
 const Logo = () => {
   return (
     <motion.div
-      className="logo"
-      initial={{ y: -100, opacity: 0.35 }}
-      animate={{ y: 0, opacity: 1 }}
+      className="logo inline-block"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 0.5, type: "spring", stiffness: 250 }}
     >
       <Link href={"/"} className="uppercase font-medium text-2xl">
         Logo
