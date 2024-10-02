@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import { useState } from "react";
 
 const buttonVariants = {
@@ -8,8 +8,8 @@ const buttonVariants = {
     boxShadow: "0px 0px 10px 1px #3B82F6",
     transition: {
       type: "tween",
-      duration: .5
-    }
+      duration: 0.5,
+    },
   },
   hidden: {
     y: "200px",
@@ -49,6 +49,27 @@ const listVariants = {
     scale: 1,
     originX: 0,
     transition: { type: "spring", stiffness: 300 },
+  },
+};
+
+const boxVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0,
+    backgroundColor: "rgb(33, 152, 237)", // only rgb color is animated
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    rotate: 720,
+    borderRadius: "50%",
+    backgroundColor: "rgb(226, 71, 149)",
+    transition: {
+      type: "tween",
+      duration: 1.5,
+      repeat: Infinity,
+      repeatType: "reverse",
+    },
   },
 };
 
@@ -95,6 +116,14 @@ const Hero = () => {
             ))}
           </ul>
         </motion.div>
+      )}
+      {!isViewed && (
+        <motion.div
+          variants={boxVariants}
+          initial="hidden"
+          animate="visible"
+          className="w-32 h-32 bg-pink-500"
+        ></motion.div>
       )}
     </section>
   );
