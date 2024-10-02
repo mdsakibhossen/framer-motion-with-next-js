@@ -27,8 +27,8 @@ const listContainerVariants = {
       type: "spring",
       stiffness: 300,
       damping: 15,
-      when: "beforeChildren",
-      staggerChildren: 0.3,
+      when: "beforeChildren", // Ensures that the children elements (list items) animate after the parent container becomes visible
+      staggerChildren: 0.3, // Adds a staggered delay between the animations of the children elements
     },
   },
 };
@@ -52,11 +52,13 @@ const listVariants = {
 const Hero = () => {
   const [isViewed, setIsViewed] = useState(false);
   const products = ["Apple", "Mango", "Orange", "Jackfruits"];
+
   return (
     <section className="py-20 h-screen flex justify-center items-center bg-slate-800 text-white relative overflow-hidden">
+      {/* Button to toggle the visibility of the product list */}
       <motion.button
         variants={buttonVariants}
-        whileHover={{}}
+        whileHover="hover"
         initial="hidden"
         animate="visible"
         onClick={() => setIsViewed((pv) => !pv)}
@@ -64,27 +66,56 @@ const Hero = () => {
       >
         {isViewed ? "Hide" : "View"}
       </motion.button>
+
       {isViewed && (
-        <motion.div
-          variants={listContainerVariants}
-          initial="hidden"
-          animate="visible"
-          className="content"
-        >
-          <h3 className="text-lg font-medium mb-3">My Products: </h3>
-          <ul className="ms-10 list-inside list-disc flex gap-3 flex-col">
-            {products.map((el, i) => (
-              <motion.li
-                variants={listVariants}
-                whileHover="hover"
-                key={i}
-                className="cursor-pointer"
-              >
-                {el}
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
+        <>
+          {/* First instance of the product list container with staggered animations */}
+          <motion.div
+            variants={listContainerVariants}
+            initial="hidden"
+            animate="visible"
+            className="content"
+          >
+            <h3 className="text-lg font-medium mb-3">My Products: </h3>
+            <ul className="ms-10 list-inside list-disc flex gap-3 flex-col">
+              {products.map((el, i) => (
+                <motion.li
+                  variants={listVariants}
+                  whileHover="hover" // Hover effect on list item. It will override the stagger effect on hover
+                  key={i}
+                  className="cursor-pointer"
+                >
+                  {el}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Second instance of the product list with a more explicit hover animation */}
+          <motion.div
+            variants={listContainerVariants}
+            initial="hidden"
+            animate="visible"
+            className="content"
+          >
+            <h3 className="text-lg font-medium mb-3">My Products: </h3>
+            <ul className="ms-10 list-inside list-disc flex gap-3 flex-col">
+              {products.map((el, i) => (
+                <motion.li
+                  variants={listVariants}
+                  whileHover={{
+                    scale: 1.25,
+                    originX: 0,
+                  }} // Hover effect applied directly instead of using a defined variant
+                  key={i}
+                  className="cursor-pointer"
+                >
+                  {el}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        </>
       )}
     </section>
   );
