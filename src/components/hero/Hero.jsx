@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const buttonVariants = {
+  hover: { scale: 1.2, boxShadow: "0px 0px 10px 1px #3B82F6" },
   hidden: {
     y: "200px",
     x: "-50%",
@@ -26,12 +27,17 @@ const listContainerVariants = {
       type: "spring",
       stiffness: 300,
       damping: 15,
+      when: "beforeChildren",
       staggerChildren: 0.3,
     },
   },
 };
 
 const listVariants = {
+  hover: {
+    scale: 1.25,
+    originX: 0,
+  },
   hidden: {
     scale: 0,
     originX: 0,
@@ -50,7 +56,7 @@ const Hero = () => {
     <section className="py-20 h-screen flex justify-center items-center bg-slate-800 text-white relative overflow-hidden">
       <motion.button
         variants={buttonVariants}
-        whileHover={{ scale: 1.2, boxShadow: "0px 0px 10px 1px #3B82F6" }}
+        whileHover={{}}
         initial="hidden"
         animate="visible"
         onClick={() => setIsViewed((pv) => !pv)}
@@ -70,10 +76,7 @@ const Hero = () => {
             {products.map((el, i) => (
               <motion.li
                 variants={listVariants}
-                whileHover={{
-                  scale: 1.25,
-                  originX: 0,
-                }}
+                whileHover="hover"
                 key={i}
                 className="cursor-pointer"
               >
