@@ -1,5 +1,5 @@
 "use client";
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 
 const buttonVariants = {
@@ -22,7 +22,12 @@ const listContainerVariants = {
   visible: {
     x: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 300, damping: 15 },
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 15,
+      staggerChildren: 0.3,
+    },
   },
 };
 
@@ -34,7 +39,7 @@ const listVariants = {
   visible: {
     scale: 1,
     originX: 0,
-    transition: { delay: 0.5, type: "spring", stiffness: 300 },
+    transition: { type: "spring", stiffness: 300 },
   },
 };
 
