@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { delay, motion } from "framer-motion";
 import { useState } from "react";
 
 const buttonVariants = {
@@ -11,6 +11,30 @@ const buttonVariants = {
     y: 0,
     x: "-50%",
     transition: { delay: 0.75 },
+  },
+};
+
+const listContainerVariants = {
+  hidden: {
+    x: "-100vw",
+    opacity: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { type: "spring", stiffness: 300, damping: 15 },
+  },
+};
+
+const listVariants = {
+  hidden: {
+    scale: 0,
+    originX: 0,
+  },
+  visible: {
+    scale: 1,
+    originX: 0,
+    transition: { delay: 0.5, type: "spring", stiffness: 300 },
   },
 };
 
@@ -31,19 +55,22 @@ const Hero = () => {
       </motion.button>
       {isViewed && (
         <motion.div
-          initial={{ x: "-100vw", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+          variants={listContainerVariants}
+          initial="hidden"
+          animate="visible"
           className="content"
         >
           <h3 className="text-lg font-medium mb-3">My Products: </h3>
           <ul className="ms-10 list-inside list-disc flex gap-3 flex-col">
             {products.map((el, i) => (
               <motion.li
-                whileHover={{ scale: 1.25, originX: 0 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                variants={listVariants}
+                whileHover={{
+                  scale: 1.25,
+                  originX: 0,
+                }}
                 key={i}
-                className=" cursor-pointer"
+                className="cursor-pointer"
               >
                 {el}
               </motion.li>
