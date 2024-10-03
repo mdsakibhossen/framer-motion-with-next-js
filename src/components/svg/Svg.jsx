@@ -20,11 +20,16 @@ const pathVariants = {
 
 const Svg = () => {
   return (
-    <svg
+    <motion.svg
       viewBox="0 0 1024 1024"
       className="icon w-60 h-60"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
+      drag
+      dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+      dragElastic={0.85}
+      dragTransition={{bounceStiffness: 1500, bounceDamping: 30}}
+      whileDrag={{ scale: 0.5 }}
     >
       <motion.path
         d="M429.9 186.7v406.4h407.5c-4 34.1-12.8 67.3-26.2 99.1-18.4 43.6-44.8 82.7-78.5 116.3-33.6 33.6-72.8 60-116.4 78.4-45.1 19.1-93 28.7-142.5 28.7-49.4 0-97.4-9.7-142.5-28.7-43.6-18.4-82.7-44.8-116.4-78.4-33.6-33.6-60-72.7-78.4-116.3-19.1-45.1-28.7-93-28.7-142.4s9.7-97.3 28.7-142.4c18.4-43.6 44.8-82.7 78.4-116.3 33.6-33.6 72.8-60 116.4-78.4 31.7-13.2 64.7-21.9 98.6-26m44-46.6c-226.4 0-410 183.5-410 409.8s183.6 409.8 410 409.8 410-183.5 410-409.8v-0.8h-410v-409z"
@@ -44,9 +49,8 @@ const Svg = () => {
         initial="initial"
         animate="animate"
       />
-    </svg>
+    </motion.svg>
   );
 };
-
 
 export default Svg;
