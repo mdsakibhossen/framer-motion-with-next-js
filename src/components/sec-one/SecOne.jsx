@@ -1,4 +1,5 @@
 import Reveal from "../motion/reveal/Reveal";
+import TextReveal from "../motion/reveal/TextReveal";
 
 const SecOne = () => {
   return (
@@ -19,7 +20,7 @@ const SecOne = () => {
         </div>
         <div className="card max-w-[800px] text-slate-300 lg:ms-auto">
           <h2 className="text-2xl lg:text-4xl uppercase font-medium mb-3">
-            <Reveal>Hi, I&apos;m Shakib,</Reveal>
+            <TextReveal>Hi, I&apos;m Shakib,</TextReveal>
           </h2>
           <p className="text-slate-400">
             <Reveal>
@@ -33,6 +34,6 @@ const SecOne = () => {
       </div>
     </section>
   );
-}
+};
 
-export default SecOne
+export default SecOne;
