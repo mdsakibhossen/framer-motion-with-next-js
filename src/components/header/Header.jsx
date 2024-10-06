@@ -19,6 +19,12 @@ const Header = () => {
   const headerVariants = {
     hidden: { y: "-100%", opacity: 0 },
     visible: { y: 0, opacity: 1 },
+    transition: {
+      delay: 0.25,
+      type: "tween",
+      duration: 0.25,
+      ease: "easeInOut",
+    },
   };
 
   return (
@@ -26,12 +32,7 @@ const Header = () => {
       variants={headerVariants}
       initial="hidden"
       animate={hidden ? "hidden" : "visible"}
-      transition={{
-        delay: 0.25,
-        type: "tween",
-        duration: 0.25,
-        ease: "easeInOut",
-      }}
+      transition="transition"
       className="fixed w-full bg-white z-50 top-0 left-0 py-5 shadow"
     >
       <div className="container mx-auto px-3 flex justify-between items-center">
