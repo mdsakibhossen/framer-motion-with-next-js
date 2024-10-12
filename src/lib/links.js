@@ -6,12 +6,12 @@ export const links = [
     },
     {
         id: 2,
-        href: "#",
+        href: "/about-us",
         text: "About Us"
     },
     {
         id: 3,
-        href: "#",
+        href: "/blog",
         text: "Blog"
     },
     // {
