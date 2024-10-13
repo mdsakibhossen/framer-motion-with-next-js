@@ -1,22 +1,3 @@
-// "use client";
-// import { AnimatePresence, motion } from "framer-motion";
-// import { usePathname } from "next/navigation";
-
-// const PageTransition = ({ children }) => {
-//     const pathname = usePathname()
-//   return (
-//     <>
-//       <AnimatePresence>
-//         <motion.div className="fixed top-0 left-0 w-full h-screen bg-slate-900 z-[999]" />
-//       </AnimatePresence>
-//       <main>{children}</main>
-//     </>
-//   );
-// };
-
-// export default PageTransition;
-
-
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,34 +8,44 @@ const PageTransition = ({ children }) => {
   const pathname = usePathname();
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Define animation variants
-  const transitionVariants = {
-    initial: { opacity: 1, scaleX: 1, originX: 0, },
-    animate: { opacity: 1, scaleX: 1, originX: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, scaleX: 0, originX: 0, transition: { duration: 0.5 } },
+  // Animation variants for the overlay
+  const overlayVariants = {
+    hidden: { scaleX: 0, transformOrigin: "left" }, // Start with scale 0 from the left
+    visible: {
+      scaleX: 1,
+      transformOrigin: "left",
+      transition: { duration: 0.8 },
+    }, // Expand to full width
+    exit: {
+      scaleX: 0,
+      transformOrigin: "right",
+      transition: { duration: 0.8 },
+    }, // Collapse to the right
   };
 
   useEffect(() => {
     setIsTransitioning(true);
-    const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsTransitioning(false);
-    }, 500); // Duration of the animation
-
-    return () => clearTimeout(timeout);
+    }, 1600); // Total duration of the animation (expand + collapse)
+    return () => clearTimeout(timer);
   }, [pathname]); // Trigger the effect on route change
 
   return (
     <>
       <AnimatePresence mode="wait">
         {isTransitioning && (
-          <motion.div
-            key={pathname}
-            className="fixed top-0 left-0 w-full h-screen bg-slate-900 z-[999]"
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={transitionVariants}
-          />
+          <>
+            {/* Overlay that covers the full screen */}
+            <motion.div
+              key={pathname} // Key ensures that the transition happens on route change
+              className="fixed top-0 left-0 w-full min-h-screen bg-slate-900 z-[999]"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={overlayVariants}
+            />
+          </>
         )}
       </AnimatePresence>
       <main>{children}</main>
